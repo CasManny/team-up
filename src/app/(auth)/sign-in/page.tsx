@@ -1,5 +1,11 @@
+import { getCurrent } from "@/features/auth/actions";
 import { SignInCard } from "../../../features/auth/components/sign-in-card";
-const page = () => {
+import { redirect } from "next/navigation";
+const page = async () => {
+  const user = await getCurrent()
+  if (user) {
+    redirect("/")
+  }
   return (
      <SignInCard />
   );

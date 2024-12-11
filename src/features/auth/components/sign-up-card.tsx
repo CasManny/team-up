@@ -24,9 +24,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { signupSchema } from "./schemas";
+import { useRegister } from "../api/use-register";
 
 
 export const SignUpCard = () => {
+    const {mutate, isPending } = useRegister()
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -36,8 +38,8 @@ export const SignUpCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signupSchema>) => {
-    console.log(values);
+    const onSubmit = (values: z.infer<typeof signupSchema>) => {
+      mutate({json: values})
   };
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
@@ -68,7 +70,7 @@ export const SignUpCard = () => {
                   <FormControl>
                     <Input
                       disabled={false}
-                      type="email"
+                      type="text"
                       {...field}
                       placeholder="Enter your name"
                     />
@@ -112,7 +114,7 @@ export const SignUpCard = () => {
               )}
             />
             <Button disabled={false} size={"lg"} className="w-full">
-              Login
+              Register
             </Button>
           </form>
         </Form>
