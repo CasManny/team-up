@@ -51,7 +51,6 @@ export const SignInCard = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      disabled={false}
                       type="email"
                       {...field}
                       placeholder="Enter email address"
@@ -68,7 +67,6 @@ export const SignInCard = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      disabled={false}
                       type="password"
                       {...field}
                       placeholder="Enter your password"
@@ -78,7 +76,7 @@ export const SignInCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size={"lg"} className="w-full">
+            <Button disabled={isPending} size={"lg"} className="w-full">
               Login
             </Button>
           </form>
