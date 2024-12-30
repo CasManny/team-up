@@ -32,10 +32,10 @@ interface CreateProjectFormProps {
 
 export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const workspaceId = useWorkspaceId()
+  const workspaceId = useWorkspaceId();
   const router = useRouter();
   const form = useForm<z.infer<typeof createProjectSchema>>({
-    resolver: zodResolver(createProjectSchema.omit({workspaceId: true})),
+    resolver: zodResolver(createProjectSchema.omit({ workspaceId: true })),
     defaultValues: {
       name: "",
       image: "",
@@ -55,14 +55,15 @@ export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
     const finalValues = {
       ...values,
       image: values.image instanceof File ? values.image : "",
-      workspaceId
+      workspaceId,
     };
     mutate(
       { form: finalValues },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
           // redirect to project screen
+          router.push(`/workspaces/${workspaceId}/projects/${data.$id}`);
         },
       }
     );
