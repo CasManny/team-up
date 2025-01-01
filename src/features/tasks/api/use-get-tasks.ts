@@ -6,7 +6,7 @@ interface UseGetTasksProps {
   workspaceId: string;
   projectId?: string | null;
   status?: TaskStatus | null;
-  assigneedId?: string | null;
+  assigneeId?: string | null;
   dueDate?: string | null;
   search?: string | null;
 }
@@ -16,7 +16,7 @@ export const useGetTasks = ({
   projectId,
   status,
   search,
-  assigneedId,
+  assigneeId,
   dueDate,
 }: UseGetTasksProps) => {
   const query = useQuery({
@@ -26,7 +26,7 @@ export const useGetTasks = ({
       projectId,
       status,
       search,
-      assigneedId,
+      assigneeId,
       dueDate,
     ],
     queryFn: async () => {
@@ -35,7 +35,7 @@ export const useGetTasks = ({
           workspaceId,
           projectId: projectId ?? undefined,
           status: status ?? undefined,
-          assigneeId: assigneedId ?? undefined,
+          assigneeId: assigneeId ?? undefined,
           search: search ?? undefined,
           dueDate: dueDate ?? undefined,
         },

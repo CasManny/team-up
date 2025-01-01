@@ -112,7 +112,7 @@ export const CreateTaskForm = ({
               />
               <FormField
                 control={form.control}
-                name="assigneedId"
+                name="assigneeId"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Assignee</FormLabel>

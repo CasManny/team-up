@@ -10,22 +10,26 @@ import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useQueryState } from "nuqs";
 import DataFilters from "@/components/data-filters";
 import { useTaskFilters } from "@/hooks/use-task-filters";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 
 const TaskViewSwitcher = () => {
   const workspaceId = useWorkspaceId();
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
-  const [{ status, assigneedId, projectId, dueDate }, setFilters] =
+  const [{ status, assigneeId, projectId, dueDate }, setFilters] =
     useTaskFilters();
   const { open } = useCreateTaskModal();
-  const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
+  const { data: tasks, isPending: isPendingTasks } = useGetTasks({
     workspaceId,
-    projectId,
-    assigneedId,
-    status,
-    dueDate,
+    // projectId,
+    // assigneeId,
+    // status,
+    // dueDate,
   });
+
+  console.log(tasks);
   return (
     <Tabs
       className="flex-1 w-full border rounded-lg"
@@ -53,14 +57,14 @@ const TaskViewSwitcher = () => {
         <DottedSeparator className="my-4" />
         <DataFilters />
         <DottedSeparator className="my-4" />
-        {isLoadingTasks ? (
+        {isPendingTasks ? (
           <div className="w-full border rounded-lg h-[200px] flex-col items-center justify-center">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />
           </div>
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              data table
+              <DataTable columns={columns} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               data kanban
