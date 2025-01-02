@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateTaskModal } from "@/hooks/use-create-task-modal";
 import { Loader2, Plus } from "lucide-react";
-import React from "react";
+import React, { useCallback } from "react";
 import { useGetTasks } from "../api/use-get-tasks";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useQueryState } from "nuqs";
@@ -12,6 +12,8 @@ import DataFilters from "@/components/data-filters";
 import { useTaskFilters } from "@/hooks/use-task-filters";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { DataKanban } from "./data-kanban";
+import { TaskStatus } from "../types";
 
 const TaskViewSwitcher = () => {
   const workspaceId = useWorkspaceId();
@@ -23,13 +25,17 @@ const TaskViewSwitcher = () => {
   const { open } = useCreateTaskModal();
   const { data: tasks, isPending: isPendingTasks } = useGetTasks({
     workspaceId,
-    // projectId,
-    // assigneeId,
-    // status,
-    // dueDate,
+    projectId,
+    assigneeId,
+    status,
+    dueDate,
   });
 
   console.log(tasks);
+
+  const onKanbanChange = useCallback((tasks: {$id: string, status: TaskStatus, position: number}[]) => {
+    console.log(tasks)
+  }, [])
   return (
     <Tabs
       className="flex-1 w-full border rounded-lg"
@@ -67,7 +73,7 @@ const TaskViewSwitcher = () => {
               <DataTable columns={columns} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
-              data kanban
+              <DataKanban onChange={onKanbanChange} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="calender" className="mt-0">
               data calender
