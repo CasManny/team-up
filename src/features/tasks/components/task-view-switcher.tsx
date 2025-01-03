@@ -15,6 +15,7 @@ import { columns } from "./columns";
 import { DataKanban } from "./data-kanban";
 import { TaskStatus } from "../types";
 import { useBulkUpdateTask } from "../api/use-bulk-update-task";
+import DataCalendar from "./data-calendar";
 
 const TaskViewSwitcher = () => {
   const workspaceId = useWorkspaceId();
@@ -57,7 +58,7 @@ const TaskViewSwitcher = () => {
               Kanban
             </TabsTrigger>
             <TabsTrigger className="h-8 w-full lg:w-auto" value="calender">
-              Calenger
+              Calendar
             </TabsTrigger>
           </TabsList>
           <Button size={"sm"} className="w-full lg:w-auto" onClick={open}>
@@ -83,8 +84,8 @@ const TaskViewSwitcher = () => {
                 data={tasks?.documents ?? []}
               />
             </TabsContent>
-            <TabsContent value="calender" className="mt-0">
-              data calender
+            <TabsContent value="calender" className="mt-0 h-full pb-4">
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
