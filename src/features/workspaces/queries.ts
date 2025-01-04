@@ -1,7 +1,6 @@
 import { DATABASE_ID, MEMBERS_ID, WORKSPACE_ID } from "@/config";
 import { createSessionClient } from "@/lib/appwrite";
 import { Query } from "node-appwrite";
-import { getMember } from "../members/utils";
 import { Workspace } from "./types";
 
 export const getCurrentWorkspaces = async () => {
@@ -30,29 +29,7 @@ export const getCurrentWorkspaces = async () => {
     return { documents: [], total: 0 };
   }
 };
-export const getWorkspaceInfo = async ({
-  workspaceId,
-}: {
-  workspaceId: string;
-}) => {
-  try {
 
-    const {databases } = await createSessionClient()
-   
-
-    const workspace = await databases.getDocument<Workspace>(
-      DATABASE_ID,
-      WORKSPACE_ID,
-      workspaceId
-    );
-
-    return {
-      name: workspace.name,
-    };
-  } catch {
-    return null;
-  }
-};
 export const getCurrentWorkspace = async ({
   workspaceId,
 }: {

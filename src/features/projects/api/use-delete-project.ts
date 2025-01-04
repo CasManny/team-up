@@ -1,7 +1,6 @@
 import { client } from "@/lib/rpc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type RequestType = InferRequestType<
@@ -13,7 +12,6 @@ type ResponseType = InferResponseType<
 >;
 
 export const useDeleteProject = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ param }) => {
@@ -25,7 +23,6 @@ export const useDeleteProject = () => {
     },
     onSuccess: ({ data }) => {
       toast.success("project deleted");
-      router.refresh();
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       queryClient.invalidateQueries({ queryKey: ["projects", data.$id] });
     },
