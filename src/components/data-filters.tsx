@@ -37,7 +37,7 @@ const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
     label: member.name,
   }));
 
-  const [{ status, assigneedId, projectId, dueDate }, setFilters] =
+  const [{ status, assigneeId, projectId, dueDate }, setFilters] =
     useTaskFilters();
   const onStatusChange = (value: string) => {
     if (value === "all") {
@@ -48,7 +48,7 @@ const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   };
 
   const onAssigneeChange = (value: string) => {
-    setFilters({ assigneedId: value === "all" ? null : (value as string) });
+    setFilters({ assigneeId: value === "all" ? null : (value as string) });
   };
 
   const onProjectChange = (value: string) => {
@@ -81,7 +81,7 @@ const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
         </SelectContent>
       </Select>
       <Select
-        defaultValue={assigneedId || undefined}
+        defaultValue={assigneeId || undefined}
         onValueChange={(value) => onAssigneeChange(value)}
       >
         <SelectTrigger className="w-full lg:w-auto h-8">
@@ -100,26 +100,28 @@ const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           ))}
         </SelectContent>
       </Select>
-      <Select
-        defaultValue={projectId || undefined}
-        onValueChange={(value) => onProjectChange(value)}
-      >
-        <SelectTrigger className="w-full lg:w-auto h-8">
-          <div className="flex items-center pr-2">
-            <FolderIcon className="size-4 mr-2" />
-            <SelectValue placeholder="All Projects" />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All projects</SelectItem>
-          <SelectSeparator />
-          {projectOptions?.map((project) => (
-            <SelectItem key={project.value} value={project.value}>
-              {project.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {!hideProjectFilter && (
+        <Select
+          defaultValue={projectId || undefined}
+          onValueChange={(value) => onProjectChange(value)}
+        >
+          <SelectTrigger className="w-full lg:w-auto h-8">
+            <div className="flex items-center pr-2">
+              <FolderIcon className="size-4 mr-2" />
+              <SelectValue placeholder="All Projects" />
+            </div>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All projects</SelectItem>
+            <SelectSeparator />
+            {projectOptions?.map((project) => (
+              <SelectItem key={project.value} value={project.value}>
+                {project.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
 
       <DatePicker
         placeholder="Due date"
