@@ -1,8 +1,6 @@
 "use client";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Card,
   CardContent,
@@ -10,11 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
-import DottedSeparator from "@/components/dotted-separator";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { z } from "zod";
 
 import {
   Form,
@@ -23,8 +23,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { signupSchema } from "./schemas";
 import { useRegister } from "../api/use-register";
+import { signupSchema } from "./schemas";
 
 
 export const SignUpCard = () => {
@@ -69,7 +69,7 @@ export const SignUpCard = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      disabled={false}
+                      disabled={isPending}
                       type="text"
                       {...field}
                       placeholder="Enter your name"
@@ -86,7 +86,7 @@ export const SignUpCard = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      disabled={false}
+                      disabled={isPending}
                       type="email"
                       {...field}
                       placeholder="Enter email address"
@@ -103,7 +103,7 @@ export const SignUpCard = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      disabled={false}
+                      disabled={isPending}
                       type="password"
                       {...field}
                       placeholder="Enter your password"
@@ -113,7 +113,7 @@ export const SignUpCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size={"lg"} className="w-full">
+            <Button disabled={isPending} size={"lg"} className="w-full">
               Register
             </Button>
           </form>
@@ -127,7 +127,7 @@ export const SignUpCard = () => {
           variant={"secondary"}
           size={"lg"}
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FcGoogle className="mr-2 size-5" />
           signup with Google
@@ -136,7 +136,7 @@ export const SignUpCard = () => {
           variant={"secondary"}
           size={"lg"}
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FaGithub className="mr-2 size-5" />
           signup with Github

@@ -13,19 +13,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import DottedSeparator from "@/components/dotted-separator";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ImageIcon } from "lucide-react";
-import Image from "next/image";
-import { useRef } from "react";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { createTaskSchema } from "../schemas";
-import { useCreateTask } from "../api/use-create-task";
 import { DatePicker } from "@/components/date-picker";
+import DottedSeparator from "@/components/dotted-separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -34,9 +24,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { Task, TaskStatus } from "../types";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+import { cn } from "@/lib/utils";
 import { useUpdateTask } from "../api/use-update-task";
+import { createTaskSchema } from "../schemas";
+import { Task, TaskStatus } from "../types";
 
 interface EditTaskFormProps {
   onCancel?: () => void;
@@ -51,9 +43,6 @@ export const EditTaskForm = ({
   projectOptions,
   initialValues,
 }: EditTaskFormProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const workspaceId = useWorkspaceId();
-  const router = useRouter();
   const form = useForm<z.infer<typeof createTaskSchema>>({
     resolver: zodResolver(
       createTaskSchema.omit({ workspaceId: true, description: true })
@@ -72,7 +61,7 @@ export const EditTaskForm = ({
     mutate(
       { json: values, param: { taskId: initialValues.$id } },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           form.reset();
           onCancel?.();
         },

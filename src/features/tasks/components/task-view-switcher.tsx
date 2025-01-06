@@ -1,21 +1,22 @@
 "use client";
+import DataFilters from "@/components/data-filters";
 import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateTaskModal } from "@/hooks/use-create-task-modal";
-import { Loader2, Plus } from "lucide-react";
-import React, { useCallback } from "react";
-import { useGetTasks } from "../api/use-get-tasks";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useQueryState } from "nuqs";
-import DataFilters from "@/components/data-filters";
+import { useProjectId } from "@/hooks/use-project-id";
 import { useTaskFilters } from "@/hooks/use-task-filters";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
-import { DataKanban } from "./data-kanban";
-import { TaskStatus } from "../types";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { Loader2, Plus } from "lucide-react";
+import { useQueryState } from "nuqs";
+import { useCallback } from "react";
 import { useBulkUpdateTask } from "../api/use-bulk-update-task";
+import { useGetTasks } from "../api/use-get-tasks";
+import { TaskStatus } from "../types";
+import { columns } from "./columns";
 import DataCalendar from "./data-calendar";
+import { DataKanban } from "./data-kanban";
+import { DataTable } from "./data-table";
 
 interface TaskViewSwitcherProps {
   hideProjectFilter?: boolean
@@ -23,6 +24,7 @@ interface TaskViewSwitcherProps {
 
 const TaskViewSwitcher = ({hideProjectFilter}: TaskViewSwitcherProps) => {
   const workspaceId = useWorkspaceId();
+  const paramProjectId = useProjectId()
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
@@ -32,7 +34,7 @@ const TaskViewSwitcher = ({hideProjectFilter}: TaskViewSwitcherProps) => {
   const { mutate: bulkUpdate } = useBulkUpdateTask();
   const { data: tasks, isPending: isPendingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: paramProjectId || projectId,
     assigneeId,
     status,
     dueDate,
@@ -44,7 +46,7 @@ const TaskViewSwitcher = ({hideProjectFilter}: TaskViewSwitcherProps) => {
         json: { tasks },
       });
     },
-    []
+    [bulkUpdate]
   );
   return (
     <Tabs

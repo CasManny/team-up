@@ -16,15 +16,14 @@ import { z } from "zod";
 import DottedSeparator from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { cn } from "@/lib/utils";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { createProjectSchema } from "../schema";
+import { useRef } from "react";
 import { useCreateProject } from "../api/use-create-project";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { createProjectSchema } from "../schema";
 
 interface CreateProjectFormProps {
   onCancel?: () => void;

@@ -83,7 +83,7 @@ export const EditWorkspaceForm = ({
   const handleResetInviteCode = async () => {
     const ok = await confirmReset()
     if (!ok) return
-    deleteWorkspace({
+    resetInviteCode({
       param: { workspaceId: initialValues.$id}
     }, {
       onSuccess: () => {
@@ -257,7 +257,7 @@ export const EditWorkspaceForm = ({
 
             <Button
               type="button"
-              disabled={isPending || isDeletingWorkspace}
+              disabled={isPending || isDeletingWorkspace || isResettingInviteCode}
               onClick={handleDelete}
               className="mt-6 w-fit ml-auto"
               size={"sm"}
@@ -286,7 +286,7 @@ export const EditWorkspaceForm = ({
             <DottedSeparator className="py-7" />
             <Button
               type="button"
-              disabled={isPending || isDeletingWorkspace}
+              disabled={isPending || isDeletingWorkspace || isResettingInviteCode}
               onClick={handleResetInviteCode}
               className="mt-6 w-fit ml-auto"
               size={"sm"}

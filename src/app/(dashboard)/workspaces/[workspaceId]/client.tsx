@@ -66,7 +66,6 @@ interface TaskListProps {
   total: number;
 }
 export const TaskList = ({ data, total }: TaskListProps) => {
-  const { open: createProject } = useCreateProjectModal();
   const { open: createTask } = useCreateTaskModal();
   const workspaceId = useWorkspaceId();
 
@@ -120,7 +119,6 @@ interface ProjectListProps {
 }
 export const ProjectList = ({ data, total }: ProjectListProps) => {
   const { open: createProject } = useCreateProjectModal();
-  const { open: createTask } = useCreateTaskModal();
   const workspaceId = useWorkspaceId();
 
   return (
@@ -166,7 +164,7 @@ interface MembersListProps {
   data: Member[];
   total: number;
 }
-export const MembersList = ({ data, total }: MemberListProps) => {
+export const MembersList = ({ data, total }: MembersListProps) => {
   const workspaceId = useWorkspaceId();
 
   return (

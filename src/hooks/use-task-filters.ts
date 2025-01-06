@@ -1,5 +1,5 @@
 import { TaskStatus } from "@/features/tasks/types"
-import { parseAsString, parseAsStringEnum, parseAsStringLiteral, useQueryStates } from "nuqs"
+import { parseAsString, parseAsStringEnum, useQueryStates } from "nuqs"
 
 export const useTaskFilters = () => {
     return useQueryStates({

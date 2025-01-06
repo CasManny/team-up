@@ -2,13 +2,9 @@ import { getCurrent } from "@/features/auth/queries";
 import { redirect } from "next/navigation";
 import ProjectIdClient from "./client";
 
-interface ProjectIdpageProps {
-  params: {
-    projectId: string;
-  };
-}
 
-const ProjectIdpage = async ({ params }: ProjectIdpageProps) => {
+
+const ProjectIdpage = async () => {
   const user = await getCurrent();
   if (!user) {
     redirect("/sign-in");

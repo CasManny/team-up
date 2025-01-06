@@ -23,11 +23,13 @@ export const getProject = async ({ projectId }: GetProjectIdProps) => {
       workspaceId: project.workspaceId,
       userId: user.$id,
     });
-      
-      if (!member) {
-          return null
-      }
 
-      return project
-  } catch (error) {}
+    if (!member) {
+      return null;
+    }
+
+    return project;
+  } catch (error) {
+    console.log(error);
+  }
 };

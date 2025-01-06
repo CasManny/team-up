@@ -9,12 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
-import { useJoinWorkspace } from "../api/use-join-workspace";
 import { useInviteCode } from "@/hooks/use-invite-code";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { Route, Router } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useJoinWorkspace } from "../api/use-join-workspace";
 
 interface JoinWorkspaceFormProps {
   initialValues: {
@@ -46,7 +45,7 @@ export const JoinWorkspaceForm = ({
       <CardHeader className="p-7">
         <CardTitle className="text-xl font-bold">Join workspace</CardTitle>
         <CardDescription>
-          You've been invited to join <strong>{initialValues.name}</strong>
+          You&apos;ve been invited to join <strong>{initialValues.name}</strong>
         </CardDescription>
       </CardHeader>
       <div className="px-7">
@@ -64,7 +63,7 @@ export const JoinWorkspaceForm = ({
           >
             <Link href={"/"}>cancel</Link>
           </Button>
-          <Button className="w-full lg:w-fit" size={"lg"} disabled={isPending}>
+          <Button onClick={onSubmit} className="w-full lg:w-fit" size={"lg"} disabled={isPending}>
             Join workspace
           </Button>
         </div>

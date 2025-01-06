@@ -1,8 +1,8 @@
 import "server-only";
 
-import { Client, Account, Storage, Users, Databases } from "node-appwrite";
-import { cookies } from "next/headers";
 import { AUTH_COOKIE } from "@/features/auth/constants";
+import { cookies } from "next/headers";
+import { Account, Client, Databases, Users } from "node-appwrite";
 
 export const createSessionClient = async () => {
   const client = new Client()

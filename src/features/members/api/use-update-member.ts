@@ -1,5 +1,5 @@
 import { client } from "@/lib/rpc"
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { InferRequestType, InferResponseType } from "hono"
 import { toast } from "sonner"
 type ResponseType = InferResponseType<typeof client.api.members[":memberId"]['$patch'], 200>

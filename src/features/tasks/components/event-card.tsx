@@ -1,12 +1,14 @@
-import { Project } from "@/features/projects/types";
-import React from "react";
-import { TaskStatus } from "../types";
-import { cn } from "@/lib/utils";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+import { Project } from "@/features/projects/types";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import React from "react";
+import { TaskStatus } from "../types";
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface EventCardProps {
   title: string;
   assignee: any;

@@ -16,18 +16,16 @@ import { z } from "zod";
 import DottedSeparator from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useConfirm } from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Copy, ImageIcon } from "lucide-react";
+import { ArrowLeft, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import { useConfirm } from "@/hooks/use-confirm";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Project } from "../types";
+import { useDeleteProject } from "../api/use-delete-project";
 import { useUpdateProject } from "../api/use-update-project";
 import { updateProjectSchema } from "../schema";
-import { useDeleteProject } from "../api/use-delete-project";
+import { Project } from "../types";
 
 interface EditProjectFormProps {
   onCancel?: () => void;

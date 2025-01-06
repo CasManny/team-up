@@ -26,6 +26,7 @@ export const getCurrentWorkspaces = async () => {
 
     return workspaces;
   } catch (error) {
+    console.log(error)
     return { documents: [], total: 0 };
   }
 };

@@ -212,7 +212,6 @@ const app = new Hono()
       const {
         name,
         status,
-        workspaceId,
         projectId,
         dueDate,
         assigneeId,

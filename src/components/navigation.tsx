@@ -1,7 +1,7 @@
 "use client";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
-import { Settings, SettingsIcon, UsersIcon } from "lucide-react";
+import { SettingsIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
